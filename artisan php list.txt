@@ -1,0 +1,44 @@
+-composer create - project laravel / laravel latihan - laravel
+-php artisan --version
+-php artisan serve
+-php -S localhost:8000 -t public/
+-php artisan migrate
+phpr-php artisan make:migration create_nmtabel_table
+-php artisan make:migration add_nmclmtabel_to_nmtabel_table
+-php artisan migration:rollback / php artisan migrate:rollback
+-php artisan make:migration change_nmclmtabel_colomm_in_nmtabel_table
+-php artisan make:model nmmodel
+-php artisan make:controller NmcntrllrController --resource
+-php artisan make:controller nmController --model=nmmodel --resource
+-php artisan make:seeder nmSeeder
+-php artisan db:seed --class=nmSeeder
+-php artisan root clear
+-php artisan make:middleware mustAdmin
+
+-php artisan make:middleware mustAdminOrTeacher
+	//kernel.php
+	- 'must-admin-or-teacher' => \App\Http\Middleware\mustAdmin::class,
+	- 'admin' => \App\Http\Middleware\Admin::class,
+	- 'siswa' => \App\Http\Middleware\Siswa::class,
+	//middleware
+	- if(Auth::user()->role_id !=1 && Auth::user()->role_id !=2){ atau if(Auth::user()->role_id !=1 && 2){
+            abort(404);
+           }
+        	//dd(Auth::user());
+        	return $next($request);
+	//web.php
+	-Route::get('/services-add', [ServicesController::class,'create'])->middleware('auth','must-admin-or-taecher');
+
+
+	logincontroller 
+		if(Auth::attempt($credentials)){
+		$request->session()->generate();
+		
+		$level = Auth::user()->role_id;
+		if($level ==1){
+			return redirect(->intended('/student');
+		}elseif ($level ==2)
+			return redirect(->intended('/teacher');
+		}else
+		echo "saha"	;
+		} 
